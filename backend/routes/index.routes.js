@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { loginUser, registerUser, getCurrentUser } from "../controllers/auth.controller.js";
 import { getPopulares, getTendencia, getMovieDetails, getTopPeliculas, 
-    getNextMovies, getUserWatchlist, searchMovies, getUserFavList , getMovieActors, getMovieVideos, checkPorVer } from "../controllers/peliculas.controller.js";
+    getNextMovies, getUserWatchlist, searchMovies, addToFavList , getMovieActors, getMovieVideos, checkPorVer } from "../controllers/peliculas.controller.js";
 import { addToWatchlist, deleteFromWatchlist } from "../controllers/peliculas.controller.js";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 const router = Router();
@@ -23,14 +23,14 @@ router.get("/movieDetail/:tmdbId", getMovieDetails);
 router.get("/search/:query", searchMovies);
 router.get("/movieActors/:idMovie", getMovieActors);
 router.get("/movieVideos/:idMovie", getMovieVideos);
-router.get("/checkPorVer/:idMovie", checkPorVer);
+router.get("/checkPorVer/:idMovie", authMiddleware, checkPorVer);
 
 
 //Rutas para crear listas de peliculas
 router.post("/watchlist", authMiddleware,addToWatchlist);
 router.delete("/watchlist", authMiddleware, deleteFromWatchlist); // Descomentar si se implementa la eliminación de la lista de seguimiento
 router.post("/getWatchlist", authMiddleware, getUserWatchlist);
-router.get("/getFavList", authMiddleware, getUserFavList);
+router.post("/favList", authMiddleware, addToFavList);
 
 // pruebas para traer datos usando nuestro token
 router.get("/auth/me", authMiddleware, getCurrentUser);

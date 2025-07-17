@@ -40,26 +40,7 @@ const ListaComponent = ({ tipo }) => {
       .finally(() => setLoading(false));
   }, [tipo]);
 
-  async function checkPorVer(movieId) {
-    try {
-      const response = await fetch(`${BACKEND_API}/checkPorVer/${movieId}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          },
-        });
-        if (!response.ok) {
-          throw new Error("Error al verificar si la película está en la lista de por ver");
-        }
-        const data = await response.json();
-        if(data.length > 0) {
-          setCheckPorVer(true);
-        }
-    } catch (error) {
-        console.error("Error en checkPorVer:", error);
-        throw error;
-    }
-  }
+
 
 
   const settings = {
@@ -85,7 +66,7 @@ const ListaComponent = ({ tipo }) => {
       <Slider {...settings}>
         {peliculas.length > 0 &&
           peliculas.map((p) => (
-            <div key={p.id} className="movie-card" onChange={() => checkPorVer(p.id)}>
+            <div key={p.id} className="movie-card">
               <div className="movie-card-inner">
                 <div className="movie-card-front">
                   {p.poster_path && (

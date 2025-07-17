@@ -114,20 +114,25 @@ export const getUserWatchlist = async (req, res) => {
   }
 };
 
-export const getUserFavList = async (req, res) => {
+export const addToFavList = async (req, res) => {
   const userId = req.user.id; // Asumiendo que el ID del usuario está
+  const { tmdbId, titulo, poster, anio, overview } = req.body;
   try {
     // Comprobar que el usuario existe
     const user = await usuarioModel.findById(userId);
     if (!user) {
       return res.status(404).json({ error: "Usuario no encontrado" });
     }
-
-    // Devolver la lista de favoritos
-    res.status(200).json(user.favList);
+    // Comprobar que no esta ya en la lista de favoritos
+    if (user.favList.some(movie => movie.tmdbId === tmdbId))
+      return res.status(400).json({ error: "La película ya está en la lista de favoritos" });
+    // Añadir la película a la lista de favoritos
+    user.favList.push({ tmdbId, titulo, poster, anio, overview });
+    await user.save();
+    res.status(201).json({ message: "Película añadida a la lista de favoritos" });
   } catch (err) {
-    console.error("Error al obtener la lista de favoritos:", err);
-    res.status(500).json({ error: "Error al obtener la lista de favoritos" });
+    console.error("Error al añadir a la lista de favoritos:", err);
+    res.status(500).json({ error: "Error al añadir a la lista de favoritos" });
   }
 }; 
 
@@ -200,7 +205,7 @@ export const getMovieVideos = async (req, res, next) => {
 
 
 export const checkPorVer = async (req, res) => {
-  const userId = req.user.id;
+  const userId = req.params.id;
   const { tmdbId } = req.params;
   try {
     const user = await usuarioModel.findById(userId);
@@ -212,7 +217,7 @@ export const checkPorVer = async (req, res) => {
     if (!movie) {
       return res.status(404).json({ error: "Película no encontrada en la lista de seguimiento" });
     }
-
+    
     res.status(200).json(movie);
   } catch (err) {
     console.error("Error al comprobar la lista de seguimiento:", err);
