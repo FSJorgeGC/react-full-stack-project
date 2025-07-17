@@ -1,0 +1,9 @@
+@dominio=http://localhost:3000
+
+@uid="1234"
+
+@token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODZhNTZlZWY3NjVjYmRkMjdhYzc2ZjEiLCJpYXQiOjE3NTE3OTk1MzQsImV4cCI6MTc1MTgwNjczNH0.W9elLXRAWqQ8hYvd7G2ZIBm9QqjgZD8trosLif0pF9E"
+
+GET {{dominio}}/api/v1/auth/me
+Authorization: Bearer {{token}}
+Content-Type: application/json
