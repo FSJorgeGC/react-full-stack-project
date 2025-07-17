@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { loginUser, registerUser, getCurrentUser } from "../controllers/auth.controller.js";
 import { getPopulares, getTendencia, getMovieDetails, getTopPeliculas, 
-    getNextMovies, getUserWatchlist, searchMovies, getUserFavList , getMovieActors, getMovieVideos } from "../controllers/peliculas.controller.js";
+    getNextMovies, getUserWatchlist, searchMovies, getUserFavList , getMovieActors, getMovieVideos, checkPorVer } from "../controllers/peliculas.controller.js";
 import { addToWatchlist, deleteFromWatchlist } from "../controllers/peliculas.controller.js";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 const router = Router();
@@ -23,6 +23,7 @@ router.get("/movieDetail/:tmdbId", getMovieDetails);
 router.get("/search/:query", searchMovies);
 router.get("/movieActors/:idMovie", getMovieActors);
 router.get("/movieVideos/:idMovie", getMovieVideos);
+router.get("/checkPorVer/:idMovie", checkPorVer);
 
 
 //Rutas para crear listas de peliculas

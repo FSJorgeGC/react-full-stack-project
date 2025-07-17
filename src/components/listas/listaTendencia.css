@@ -109,6 +109,22 @@
     column-gap: 10px;
 }
 
+  .buttons-icons {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    margin-top: 30px;
+  }
+
+  button{
+    background-color: transparent!important;
+  }
+
+  .active{
+    background-color: #d08832;
+    color: white;
+  }
+
 @media (max-width: 1629px) {
   .buttons-container {
     flex-direction: column;

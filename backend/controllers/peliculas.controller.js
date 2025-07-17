@@ -197,3 +197,25 @@ export const getMovieVideos = async (req, res, next) => {
     next(err);
   }
 }
+
+
+export const checkPorVer = async (req, res) => {
+  const userId = req.user.id;
+  const { tmdbId } = req.params;
+  try {
+    const user = await usuarioModel.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+
+    const movie = user.watchlist.find(movie => movie.tmdbId === tmdbId);
+    if (!movie) {
+      return res.status(404).json({ error: "Película no encontrada en la lista de seguimiento" });
+    }
+
+    res.status(200).json(movie);
+  } catch (err) {
+    console.error("Error al comprobar la lista de seguimiento:", err);
+    res.status(500).json({ error: "Error al comprobar la lista de seguimiento" });
+  }
+};
