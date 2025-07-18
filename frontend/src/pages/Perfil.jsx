@@ -3,7 +3,6 @@ Hooks: useState, useEffect
 Funcionalidad:
   - Perfil de usuario donde se muestra el nombre y las listas, tanto de favoritas como de por ver
   - GET a /api/v1/auth/auth/me
-  - Redirección a /login tras éxito
 ---------------------------------------------------- */
 
 import { useEffect } from "react";
@@ -15,7 +14,7 @@ import { CardPerfil } from "../components/cards/CardPerfil";
 
 export const Perfil = () => {
     const [user, setUser] = useState(null);
-
+    const [actionButton, setActionButton] = useState("");
     const BACKEND_API = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/api/v1";
 
     useEffect(() => {
@@ -44,24 +43,57 @@ export const Perfil = () => {
             console.error("Error fetching user:", error);
         }
     };
-    
-    return (
-        <div>
-            <>
+        function handleActionButtonClick(e) {
+        
+            setActionButton(e.target.textContent);
+        
+        }    
+        return (
                 <div>
-                    <h2>Perfil de usuario</h2>
-                    <p>{user.email}</p>
-                </div>
-                <div className="perfil-movies-list">
-                    {user.watchlist && user.watchlist.length > 0 ? (
-                        user.watchlist.map(p => 
-                            <CardPerfil key={p.tmdbId} p={p} 
-                        />)
+                    {/* Render user info or a loading state */}
+                    {user ? (
+                        <>
+                            <div className="perfil-header">
+                                <h2>Perfil de usuario</h2>
+                                <h3>Bienvenido a tu perfil {user.nombre}</h3>
+                            </div>
+                            <div className="movie-details-buttons">
+                            <button
+                                onClick={handleActionButtonClick}
+                                className={actionButton === "Tus favoritas" ? "active" : ""}
+                            >
+                                Tus favoritas
+                            </button>
+                            <button
+                                onClick={handleActionButtonClick}
+                                className={actionButton === "Más tarde" ? "active" : ""}
+                            >
+                                Más tarde
+                            </button>
+                            {actionButton === "Más tarde" && (
+                                <div className="perfil-movies-list">
+                                    {user.watchlist && user.watchlist.length > 0 ? (
+                                        user.watchlist.map(p => <CardPerfil key={p.tmdbId} p={p} />)
+                                    ) : (
+                                        <p>No hay películas en la lista de seguimiento.</p>
+                                    )}
+                                </div>
+                            )}
+                            {actionButton === "Tus favoritas" && (
+                                <div className="perfil-movies-list">
+                                    {user.favList && user.favList.length > 0 ? (
+                                        user.favList.map(p => <CardPerfil key={p.tmdbId} p={p} />)
+                                    ) : (
+                                        <p>No hay películas en la lista de favoritos.</p>
+                                    )}
+                                </div>
+                            )}
+
+                        </div>
+                        </>
                     ) : (
-                        <p>No hay películas en la lista de seguimiento.</p>
+                        <p>Cargando perfil...</p>
                     )}
                 </div>
-            </>
-        </div>
         );
-}
+};
