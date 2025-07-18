@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { loginUser, registerUser, getCurrentUser } from "../controllers/auth.controller.js";
 import { getPopulares, getTendencia, getMovieDetails, getTopPeliculas, 
-    getNextMovies, getUserWatchlist, searchMovies, addToFavList , getMovieActors, getMovieVideos, checkPorVer } from "../controllers/peliculas.controller.js";
+    getNextMovies, getUserWatchlist, searchMovies, addToFavList , getMovieActors, getMovieVideos, checkPorVer, getMoviesGenres, getMoviesByGenre } from "../controllers/peliculas.controller.js";
 import { addToWatchlist, deleteFromWatchlist } from "../controllers/peliculas.controller.js";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 const router = Router();
@@ -19,6 +19,7 @@ router.get("/populares", getPopulares);
 router.get("/tendencia", getTendencia);
 router.get("/top", getTopPeliculas);
 router.get("/nextMovies", getNextMovies);
+router.get("/movieGenres", getMoviesGenres);
 router.get("/movieDetail/:tmdbId", getMovieDetails);
 router.get("/search/:query", searchMovies);
 router.get("/movieActors/:idMovie", getMovieActors);

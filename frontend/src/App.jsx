@@ -14,7 +14,7 @@ import MovieDetails from './pages/MovieDetails.jsx'
 import { Login } from './pages/Login.jsx'
 import { Perfil } from './pages/Perfil.jsx'
 import { Registro } from './pages/Registro.jsx'
-import { AuthProvider } from './context/AuthContext.jsx'
+import { Generos } from './pages/Generos.jsx'
 
 function App() {
   return (
@@ -28,6 +28,7 @@ function App() {
             <Route path="/Perfil" element={<Perfil />}/>
             <Route path="/Inicio" element={<Inicio />} />
             <Route path="/MovieDetails" element={<MovieDetails />} />
+            <Route path="/generos" element={<Generos />} />
           </Routes>
         </div>
       </BrowserRouter>

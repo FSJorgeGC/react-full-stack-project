@@ -13,6 +13,7 @@ export const Header = () => {
                 <Link to="/perfil">Perfil</Link>
                 <Link to="/login">Login</Link>
                 <Link to="/registro">Registro</Link>
+                <Link to="/generos">Géneros</Link>
             </div>
         </header>
     );

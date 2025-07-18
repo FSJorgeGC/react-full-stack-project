@@ -224,3 +224,35 @@ export const checkPorVer = async (req, res) => {
     res.status(500).json({ error: "Error al comprobar la lista de seguimiento" });
   }
 };
+
+
+export const getMoviesGenres = async (next) => {
+  try{
+    const response = await fetch(`${TMDB_BASE_URL}/genre/movie/list?api_key=${TMDB_API_KEY}&language=es-ES`);
+    if (!response.ok) {
+      return res.status(response.status).json({ error: "Error al obtener géneros de películas" });
+    }
+    const data = await response.json();
+    res.json(data.genres);
+  } catch (err) {
+    console.error("Error al obtener géneros de películas:", err);
+    res.status(500).json({ error: "Error al obtener géneros de películas" });
+    next(err);
+  }
+}
+
+export const getMoviesByGenre = async (req, res, next) => {
+  const { genreId } = req.params;
+  try {
+    const response = await fetch(`${TMDB_BASE_URL}/discover/movie?api_key=${TMDB_API_KEY}&language=es-ES&with_genres=${genreId}`);
+    if (!response.ok) {
+      return res.status(response.status).json({ error: "Error al obtener películas por género" });
+    }
+    const data = await response.json();
+    res.json(data.results);
+  } catch (err) {
+    console.error("Error al obtener películas por género:", err);
+    res.status(500).json({ error: "Error al obtener películas por género" });
+    next(err);
+  }
+}
