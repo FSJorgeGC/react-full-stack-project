@@ -7,11 +7,10 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./listaTendencia.css";
-import { BtnPorVer } from "../BtnPorVer";
+import { BtnPorVer } from "../buttons/BtnPorVer";
 import { Link } from "react-router-dom";
 import { FaInfoCircle } from "react-icons/fa";
-import { BtnFav } from "../BtnFav";
-import { set } from "mongoose";
+import { BtnFav } from "../buttons/BtnFav";
 
 const TITULOS = {
   tendencia: "en Tendencia",
@@ -22,7 +21,6 @@ const TITULOS = {
 
 const ListaComponent = ({ tipo }) => {
   const [peliculas, setPeliculas] = useState([]);
-  const [checkPorVer, setCheckPorVer] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const BACKEND_API = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/api/v1";
@@ -85,7 +83,7 @@ const ListaComponent = ({ tipo }) => {
       <Slider {...settings}>
         {peliculas.length > 0 &&
           peliculas.map((p) => (
-            <div key={p.id} className="movie-card" onChange={() => checkPorVer(p.id)}>
+            <div key={p.id} className="movie-card" >
               <div className="movie-card-inner">
                 <div className="movie-card-front">
                   {p.poster_path && (

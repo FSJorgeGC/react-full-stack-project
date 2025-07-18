@@ -1,6 +1,6 @@
 import { MdWatchLater } from "react-icons/md";
-import PrivateRoute from "../context/PrivateRoute";
-import { useAuth } from '../context/AuthContext';
+import PrivateRoute from "../../context/PrivateRoute";
+import { useAuth } from '../../context/AuthContext';
 export const BtnPorVer = ({ tmdbId, titulo, poster, anio, overview }) => {
     const BACKEND_API = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/api/v1";
     const token = localStorage.getItem("token");
