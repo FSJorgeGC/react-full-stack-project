@@ -17,6 +17,7 @@ import { Registro } from './pages/Registro.jsx'
 import { Generos } from './pages/Generos.jsx'
 
 function App() {
+  console.log(import.meta.env)
   return (
       <BrowserRouter>
         <Header />

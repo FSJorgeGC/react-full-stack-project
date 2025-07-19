@@ -23,7 +23,7 @@ const ListaComponent = ({ tipo }) => {
   const [peliculas, setPeliculas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const VITE_API_URL = import.meta.env.VITE_API_URL || "https://react-full-stack-project.onrender.com";
+  const VITE_API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     setLoading(true);
