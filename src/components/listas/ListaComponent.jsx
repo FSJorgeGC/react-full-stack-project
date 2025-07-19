@@ -23,12 +23,12 @@ const ListaComponent = ({ tipo }) => {
   const [peliculas, setPeliculas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const BACKEND_API = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/api/v1";
+  const VITE_API_URL = import.meta.env.VITE_API_URL || "https://react-full-stack-project.onrender.com";
 
   useEffect(() => {
     setLoading(true);
     setError(null);
-    fetch(`${BACKEND_API}/${tipo}`)
+    fetch(`${VITE_API_URL}/${tipo}`)
       .then((res) => {
         if (!res.ok) throw new Error("Error al obtener películas");
         return res.json();

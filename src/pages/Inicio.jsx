@@ -12,14 +12,14 @@ import { FaInfoCircle } from "react-icons/fa"; // Icono de información
 
 const Inicio = () => {
   const tipoPelicula = ["tendencia", "populares", "top", "nextMovies"];
-  const BACKEND_API = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/api/v1";
+  const VITE_API_URL = import.meta.env.VITE_API_URL || "https://react-full-stack-project.onrender.com";
   const [searchMovie, setSearchMovie] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
     const handleSearch = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${BACKEND_API}/search/${searchQuery}`);
+      const response = await fetch(`${VITE_API_URL}/search/${searchQuery}`);
       if (!response.ok) {
         throw new Error("Error al buscar películas");
       }
