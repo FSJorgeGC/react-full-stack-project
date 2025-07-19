@@ -1,4 +1,11 @@
-import { useState } from 'react'
+/* --------------------- App.jsx ---------------------
+Routing: BrowserRouter, Routes, Route, Navigate
+Páginas:
+  - Inicio, Login, Registro, Perfil, MovieDetails
+Componentes:
+  - Header (siempre visible)
+----------------------------------------------------- */
+
 import './App.css'
 import Inicio from './pages/Inicio.jsx'
 import { Header } from './pages/Header.jsx'
@@ -7,12 +14,10 @@ import MovieDetails from './pages/MovieDetails.jsx'
 import { Login } from './pages/Login.jsx'
 import { Perfil } from './pages/Perfil.jsx'
 import { Registro } from './pages/Registro.jsx'
-import PrivateRoute from './context/PrivateRoute.jsx'
-import { AuthProvider } from './context/AuthContext.jsx'
+import { Generos } from './pages/Generos.jsx'
 
 function App() {
   return (
-    <AuthProvider>
       <BrowserRouter>
         <Header />
         <div>
@@ -23,10 +28,10 @@ function App() {
             <Route path="/Perfil" element={<Perfil />}/>
             <Route path="/Inicio" element={<Inicio />} />
             <Route path="/MovieDetails" element={<MovieDetails />} />
+            <Route path="/generos" element={<Generos />} />
           </Routes>
         </div>
       </BrowserRouter>
-    </AuthProvider>
   );
 }
 
