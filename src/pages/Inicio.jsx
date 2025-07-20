@@ -6,11 +6,17 @@
 import "./buscador.css"; // Importa el CSS para estilos
 import ListaComponent from "../components/listas/ListaComponent";
 import ListaComponentBusqueda from "../components/listas/ListaComponentBusqueda";
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaInfoCircle } from "react-icons/fa"; // Icono de información
 
 const Inicio = () => {
+
+
+  useState(() => {
+    console.log(import.meta.env.VITE_API_URL);
+  }, []);
+
   const tipoPelicula = ["tendencia", "populares", "top", "nextMovies"];
   const VITE_API_URL = import.meta.env.VITE_API_URL;
   const [searchMovie, setSearchMovie] = useState([]);
