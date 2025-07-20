@@ -13,9 +13,9 @@ import { FaInfoCircle } from "react-icons/fa"; // Icono de información
 const Inicio = () => {
 
 
-  useState(() => {
+
     console.log(import.meta.env.VITE_API_URL);
-  }, []);
+
 
   const tipoPelicula = ["tendencia", "populares", "top", "nextMovies"];
   const VITE_API_URL = import.meta.env.VITE_API_URL;
