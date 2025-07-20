@@ -12,7 +12,7 @@ import { FaInfoCircle } from "react-icons/fa"; // Icono de información
 
 const Inicio = () => {
   const tipoPelicula = ["tendencia", "populares", "top", "nextMovies"];
-  const VITE_API_URL = import.meta.env.VITE_API_URL || "https://react-full-stack-project.onrender.com";
+  const VITE_API_URL = import.meta.env.VITE_API_URL;
   const [searchMovie, setSearchMovie] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
