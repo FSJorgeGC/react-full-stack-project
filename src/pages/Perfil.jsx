@@ -57,43 +57,45 @@ export const Perfil = () => {
                                 <h2>Perfil de usuario</h2>
                                 <h3>Bienvenido a tu perfil {user.nombre}</h3>
                             </div>
-                            <div className="movie-details-buttons">
-                            <button
-                                onClick={handleActionButtonClick}
-                                className={actionButton === "Tus favoritas" ? "active" : ""}
-                            >
-                                Tus favoritas
-                            </button>
-                            <button
-                                onClick={handleActionButtonClick}
-                                className={actionButton === "Más tarde" ? "active" : ""}
-                            >
-                                Más tarde
-                            </button>
-                            {actionButton === "Más tarde" && (
-                                <div className="perfil-movies-list">
-                                    {user.watchlist && user.watchlist.length > 0 ? (
-                                        user.watchlist.map(p => <CardPerfil key={p.tmdbId} p={p} />)
-                                    ) : (
-                                        <p>No hay películas en la lista de seguimiento.</p>
-                                    )}
+                            <div className="perfil-content">
+                                 <div className="movie-details-buttons">
+                                <button
+                                    onClick={handleActionButtonClick}
+                                    className={actionButton === "Tus favoritas" ? "active" : ""}
+                                >
+                                    Tus favoritas
+                                </button>
+                                <button
+                                    onClick={handleActionButtonClick}
+                                    className={actionButton === "Más tarde" ? "active" : ""}
+                                >
+                                    Más tarde
+                                </button>
                                 </div>
+                                <div className="perfil-movies-list">
+                             {actionButton === "Más tarde" && (
+                                user.watchlist && user.watchlist.length > 0 ? (
+                                    user.watchlist.map(p => <CardPerfil key={p.tmdbId} p={p} />)
+                                ) : (
+                                    <p>No hay películas en la lista de seguimiento.</p>
+                                )
                             )}
                             {actionButton === "Tus favoritas" && (
-                                <div className="perfil-movies-list">
-                                    {user.favList && user.favList.length > 0 ? (
-                                        user.favList.map(p => <CardPerfil key={p.tmdbId} p={p} />)
-                                    ) : (
-                                        <p>No hay películas en la lista de favoritos.</p>
-                                    )}
-                                </div>
+                                user.favList && user.favList.length > 0 ? (
+                                    user.favList.map(p => <CardPerfil key={p.tmdbId} p={p} />)
+                                ) : (
+                                    <p>No hay películas en la lista de favoritos.</p>
+                                )
                             )}
-
-                        </div>
+                                </div>
+                            </div>
+                           
                         </>
                     ) : (
                         <p>Cargando perfil...</p>
                     )}
                 </div>
         );
-};
+    };
+
+export default Perfil;

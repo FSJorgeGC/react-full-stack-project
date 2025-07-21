@@ -8,9 +8,7 @@ import indexRoutes from "./routes/index.routes.js"; // o "./routes/auth.routes.j
 dotenv.config();
 
 const app = express();
-app.use(cors({
-  origin: process.env.FRONTEND_URL,
-  credentials: true // si algún día usas cookies o auth
+app.use(cors({origin: process.env.FRONTEND_URL || "http://localhost:5173" // Cambia esto según tu entorno
 }));
 app.use(express.json());
 

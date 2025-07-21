@@ -13,8 +13,17 @@ import { useEffect, useState } from "react";
 const MovieDetails = () => {
 
   const BACKEND_API = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/api/v1";
-  const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
+  const API_KEY = import.meta.env.VITE_TMDB_API_KEY || "f3b0c1d2e3f4g5h6i7j8k9l0m1n2o3p4";
 
+  // Ayudado por IA
+  const [itemsPerPage, setItemsPerPage] = useState(getItemsPerPage(window.innerWidth));
+  function getItemsPerPage(width) {
+    if (width >= 1920) return 6;      // Pantallas extra grandes
+    if (width >= 1629) return 4;      // Pantallas grandes
+    if (width >= 1433) return 3;       // Escritorio mediano
+    if (width >= 1235) return 2;       // Tablet
+    return 1;                         // Móvil
+  }
 
   const { state } = useLocation();
   const [actionButton, setActionButton] = useState("Resumen");
@@ -34,6 +43,17 @@ const MovieDetails = () => {
 
 
   useEffect(() => {
+    const handleResize = () => {
+      setItemsPerPage(getItemsPerPage(window.innerWidth));
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Limpieza del listener
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
     if (!movie) {
       console.error("No se ha proporcionado ningun objeto de película");
       return;
@@ -48,6 +68,7 @@ const MovieDetails = () => {
 
   async function fetchMovieActors() {
     try {
+      console.log("Obteniendo actores de la película:", movie.id);
       const response = await fetch(`${BACKEND_API}/movieActors/${movie.id}?api_key=${API_KEY}&language=es-ES`);
       if (!response.ok) {
         console.error("Error al obtener los actores de la película:", response.statusText);
@@ -55,8 +76,8 @@ const MovieDetails = () => {
       }
 
       const responseData = await response.json();
-      console.log("Detalles de la película:", responseData.cast || "No");
-      setCast(responseData.cast || []); // suponiendo que el backend responde con { data: { cast: [...] } }
+      console.log("Actores de la película:", responseData || "No");
+      setCast(responseData || []); // suponiendo que el backend responde con { data: { cast: [...] } }
     } catch (error) {
       console.error(error);
     }
@@ -88,7 +109,7 @@ const MovieDetails = () => {
       }
 
       const responseData = await response.json();
-      console.log("Detalles de la película:", responseData || "No");
+      console.log("Videos de la película:", responseData || "No");
       setResponseVideo(responseData || []); // suponiendo que el backend responde con { data: { cast: [...] } }
     } catch (error) {
       console.error(error);
@@ -194,8 +215,8 @@ const MovieDetails = () => {
         )}
         {/* Contenido de VIDEO */}
         {actionButton === "Video" && (
-          <div className="video-container">
-            {responseVideo.results && responseVideo.results.length > 0 ? (
+          <div>
+           {responseVideo.results?.length > 0 &&
               responseVideo.results.map((video) => (
                 <div key={video.id} className="video-item">
                   <iframe
@@ -207,16 +228,13 @@ const MovieDetails = () => {
                     allowFullScreen
                   ></iframe>
                 </div>
-              ))
-            ) : (
-              <p>No hay videos disponibles para esta película.</p>
-            )}
+            ))}
+
           </div>
         )}
-
-
       </div>
-    </div></>
+    </div>
+    </>
   );
 };
 

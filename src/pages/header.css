@@ -5,12 +5,13 @@ header{
 
 .header-links {
     display: flex;
-    gap: 100px;
-    margin-top: 10px;
+    gap: 80px;
+    margin-top: 26px;
 }
 
 .header-links a {
     color: white;
     text-decoration: none;
     font-weight: bold;
+    font-size: 16px;
 }

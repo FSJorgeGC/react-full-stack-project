@@ -2,13 +2,13 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  gap: 50px;
+  gap: 90px;
   padding: 40px;
   max-width: 2000px;
   margin: 0 auto;
   background-color: white;
   border-radius: 10px;
-  margin: 70px 30px;
+  margin: 50px 30px;
 }
 
 @media (max-width: 768px) {
@@ -229,4 +229,17 @@ button {
   grid-template-columns: 1fr 1fr;
   gap: 20px;
   margin-top: 30px;
+}
+
+.movie-details-buttons button {
+  background-color: #d08832!important;
+  color: black;
+}
+
+.movie-details-buttons button:hover {
+  background-color: #0056b3;
+}
+
+h2{
+  padding-left: 30px;
 }

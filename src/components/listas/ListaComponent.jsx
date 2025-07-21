@@ -19,15 +19,20 @@ const TITULOS = {
   nextMovies: "que saldrán próximamente",
 };
 
-const ListaComponent = ({ tipo }) => {
+const ListaComponent = ({ tipo, peliculasBusqueda = [] }) => {
   const [peliculas, setPeliculas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const VITE_API_URL = import.meta.env.VITE_API_URL;
+  const [checkPorVer, setCheckPorVer] = useState(false);
+  const VITE_API_URL = import.meta.env.VITE_BACKEND_URL_LOCAL;
 
   useEffect(() => {
-    setLoading(true);
-    setError(null);
+
+    if (peliculasBusqueda.length > 0) {
+      setPeliculas(peliculasBusqueda);
+      return;
+    }
+
     fetch(`${VITE_API_URL}/${tipo}`)
       .then((res) => {
         if (!res.ok) throw new Error("Error al obtener películas");
@@ -36,28 +41,7 @@ const ListaComponent = ({ tipo }) => {
       .then((data) => setPeliculas(data))
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
-  }, [tipo]);
-
-  async function checkPorVer(movieId) {
-    try {
-      const response = await fetch(`${BACKEND_API}/checkPorVer/${movieId}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          },
-        });
-        if (!response.ok) {
-          throw new Error("Error al verificar si la película está en la lista de por ver");
-        }
-        const data = await response.json();
-        if(data.length > 0) {
-          setCheckPorVer(true);
-        }
-    } catch (error) {
-        console.error("Error en checkPorVer:", error);
-        throw error;
-    }
-  }
+  }, [tipo, peliculasBusqueda, VITE_API_URL]);
 
 
   const settings = {
@@ -66,7 +50,7 @@ const ListaComponent = ({ tipo }) => {
     speed: 200,
     slidesToShow: 6,
     slidesToScroll: 3,
-    arrows: false,
+    arrows: true,
     responsive: [
       { breakpoint: 1440, settings: { slidesToShow: 4, slidesToScroll: 3 } },
       { breakpoint: 1024, settings: { slidesToShow: 3, slidesToScroll: 2 } },
@@ -75,7 +59,8 @@ const ListaComponent = ({ tipo }) => {
     ],
   };
 
-
+  if (loading) return <div>Cargando...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="carrusel-container">
@@ -83,7 +68,7 @@ const ListaComponent = ({ tipo }) => {
       <Slider {...settings}>
         {peliculas.length > 0 &&
           peliculas.map((p) => (
-            <div key={p.id} className="movie-card" >
+            <div key={p.id} className="movie-card">
               <div className="movie-card-inner">
                 <div className="movie-card-front">
                   {p.poster_path && (

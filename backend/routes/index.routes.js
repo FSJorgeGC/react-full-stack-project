@@ -20,6 +20,7 @@ router.get("/tendencia", getTendencia);
 router.get("/top", getTopPeliculas);
 router.get("/nextMovies", getNextMovies);
 router.get("/movieGenres", getMoviesGenres);
+router.get("/moviesByGenre/:idGenre", getMoviesByGenre);
 router.get("/movieDetail/:tmdbId", getMovieDetails);
 router.get("/search/:query", searchMovies);
 router.get("/movieActors/:idMovie", getMovieActors);

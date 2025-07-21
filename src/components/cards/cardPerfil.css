@@ -1,18 +1,6 @@
-.card-perfil-container {
-    display: flex;
-    flex-direction: row;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 16px;
-}
 
-.card-perfil-content {
-    flex: 1;
+.card-perfil-content{
     padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
 .card-perfil-content h1 {
@@ -37,6 +25,7 @@
   overflow: hidden;
   margin-bottom: 16px;
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: white;
 }
 
 /* Imágenes más pequeñas */
@@ -54,4 +43,19 @@
     border-radius: 4px;
     cursor: pointer;
     height: 40px;
+}
+
+
+
+
+@media (max-width: 1200px) {
+    .card-perfil-container {
+        flex-direction: column!important;
+        width: 100%;
+    }
+
+    .card-perfil-container img{
+        width: 100%!important;
+    }
+
 }

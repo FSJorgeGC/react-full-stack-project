@@ -22,32 +22,9 @@ const Inicio = () => {
   const [searchMovie, setSearchMovie] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
-    const handleSearch = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch(`${VITE_API_URL}/search/${searchQuery}`);
-      if (!response.ok) {
-        throw new Error("Error al buscar películas");
-      }
-      const data = await response.json();
-      console.log("Resultados de búsqueda:", data);
-      setSearchMovie(data);
-    } catch (error) {
-      console.error("Error al buscar películas:", error);
-      alert("Error al buscar películas. Por favor, inténtalo de nuevo más tarde.");
-    }
-  };
+   
   return (
    <>
-  <form onSubmit={handleSearch}>
-    <h3>Busca aquí tu película para hoy</h3>
-    <input
-      type="text"
-      onChange={(e) => setSearchQuery(e.target.value)}
-      placeholder="Buscar películas..."
-    />
-  </form>
-
   {/* Solo se muestra si NO hay resultados de búsqueda */}
   {searchMovie.length === 0 && (
     <div className="general-movies-list">
@@ -57,13 +34,6 @@ const Inicio = () => {
     </div>
   )}
 
-  {/* Resultados de búsqueda */}
-  {searchMovie.length > 0 && (
-    <div className="search-results">
-      <h2>Resultados de búsqueda para: "{searchQuery}"</h2>
-      <ListaComponentBusqueda moviesSearch={searchMovie} />
-    </div>
-  )}
 </>
 
   );

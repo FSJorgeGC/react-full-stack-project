@@ -173,6 +173,8 @@ export const searchMovies = async (req, res) => {
 export const getMovieActors = async (req, res, next) => {
   try{
     const { idMovie } = req.params;
+    console.log('ID de la película:', idMovie);
+    console.log('URL de la API:', `${TMDB_BASE_URL}/movie/${idMovie}/credits?api_key=${TMDB_API_KEY}&language=es-ES`);
     const response = await fetch(`${TMDB_BASE_URL}/movie/${idMovie}/credits?api_key=${TMDB_API_KEY}&language=es-ES`);
     if (!response.ok) {
       return res.status(response.status).json({ error: "Error al obtener información de la película" });
@@ -226,7 +228,7 @@ export const checkPorVer = async (req, res) => {
 };
 
 
-export const getMoviesGenres = async (next) => {
+export const getMoviesGenres = async (req, res, next) => {
   try{
     const response = await fetch(`${TMDB_BASE_URL}/genre/movie/list?api_key=${TMDB_API_KEY}&language=es-ES`);
     if (!response.ok) {
@@ -242,9 +244,12 @@ export const getMoviesGenres = async (next) => {
 }
 
 export const getMoviesByGenre = async (req, res, next) => {
-  const { genreId } = req.params;
+  const { idGenre } = req.params;
   try {
-    const response = await fetch(`${TMDB_BASE_URL}/discover/movie?api_key=${TMDB_API_KEY}&language=es-ES&with_genres=${genreId}`);
+    console.log('ID del género seleccionado:', idGenre);
+    console.log('URL de la API:', `${TMDB_BASE_URL}/discover/movie?api_key=${TMDB_API_KEY}&language=es-ES&with_genres=${idGenre}`);
+
+    const response = await fetch(`${TMDB_BASE_URL}/discover/movie?api_key=${TMDB_API_KEY}&language=es-ES&with_genres=${idGenre}`);
     if (!response.ok) {
       return res.status(response.status).json({ error: "Error al obtener películas por género" });
     }
