@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import ListaComponent from '../components/listas/ListaComponent';
-
+import ListaComponentBusqueda from '../components/listas/ListaComponentBusqueda';
+import './generos.css'; // Importa el CSS para estilos
 
 export const Generos = () => {
-    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/api/v1";
-    const TMDB_API_KEY = import.meta.env.VITE_TMDB_API_KEY;
+    const VITE_API_URL = import.meta.env.VITE_API_URL;
+    const TMDB_API_KEY = import.meta.env.TMDB_API_KEY;
     const [generos, setGeneros] = useState([]);
     const [moviesByGenre, setMoviesByGenre] = useState([]);
+    const [searchMovie, setSearchMovie] = useState([]);
+    const [activeGenre, setActiveGenre] = useState(null);
+    const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
         getGeneros();
@@ -14,7 +18,7 @@ export const Generos = () => {
 
     const getGeneros = async () => {
         try {
-            const response = await fetch(`${BACKEND_URL}/movieGenres?api_key=1f7fd3343a16c1fd2f0fe8010820351b&language=es-ES`);
+            const response = await fetch(`${VITE_API_URL}/movieGenres?api_key=${TMDB_API_KEY}&language=es-ES`);
             if (!response.ok) {
                 throw new Error('Error al obtener géneros de películas');
             }
@@ -28,9 +32,10 @@ export const Generos = () => {
     }
 
     async function handleGeneroClick(generoId) {
+        setActiveGenre(generoId);
         try {
             console.log('ID del género seleccionado:', generoId);
-            const response = await fetch(`${BACKEND_URL}/moviesByGenre/${generoId}`);
+            const response = await fetch(`${VITE_API_URL}/moviesByGenre/${generoId}`);
             console.log('Respuesta de películas por género:', response);
             if (!response.ok) {
                 throw new Error('Error al obtener películas por género');
@@ -46,7 +51,7 @@ export const Generos = () => {
     const handleSearch = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`${BACKEND_URL}/search/${searchQuery}`);
+            const response = await fetch(`${VITE_API_URL}/search/${searchQuery}`);
             if (!response.ok) {
                 throw new Error("Error al buscar películas");
             }
@@ -72,22 +77,20 @@ export const Generos = () => {
         </form>
         <div>
             {generos.length > 0 ? (
-                <ul>
+                <div className='buttons-generos-container'>
                     {generos.map(genero => (
-                        <li key={genero.id}><button onClick={() => handleGeneroClick(genero.id)}>{genero.name}</button></li>
+                        <div key={genero.id}><button className={activeGenre === genero.id ? 'active' : ''} onClick={() => handleGeneroClick(genero.id)}>{genero.name}</button></div>
                     ))}
-                </ul>
+                </div>
             ) : (
                 <p>No se encontraron géneros.</p>
             )}
         </div>
         <div>
-            <ListaComponent peliculasBusqueda={moviesByGenre} />
+            <ListaComponentBusqueda peliculasGenero={moviesByGenre} peliculasBusqueda={searchMovie} />
         </div>
 
-        <div>
-            <ListaComponenteBusqueda moviesSearch={searchMovie} />
-        </div>  
+        
         </>
     );
 

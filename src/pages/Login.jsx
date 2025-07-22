@@ -1,44 +1,23 @@
 /* Página de Inicio de Sesión */
 
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./login.css";
-import { Link, useNavigate } from "react-router-dom";
+import {AuthContext} from "../context/AuthContext.jsx";
+import { data } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const {login} = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+
     try {
-      const response = await fetch("http://localhost:3000/api/v1/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
-      const result = await response.json();
-
-      if (!response.ok || !result?.data?.token) {
-        throw new Error(result?.msg || "Credenciales incorrectas");
-      }
-
-      const { token, name } = result.data;
-      // Si la respuesta es exitosa, guardamos el token y redirigimos
-      if (!token) {
-        throw new Error("Token no encontrado");
-      }
-
-      console.log("Login successful:", result.data);
-      localStorage.setItem("token", token);
-      alert(`Bienvenido ${email}`);
-      navigate("/inicio");
+      console.log("Datos del formulario:", data);
+      await login(data);
     } catch (error) {
       console.error(error.message);
       alert(error.message || "Login failed");
@@ -50,18 +29,29 @@ export const Login = () => {
     <div className="login-container">
       <h1>Iniciar Sesión</h1>
       <form onSubmit={handleSubmit} className="container mt-5">
+
+        <div className="form-group">
+          <label htmlFor="name">Nombre</label>
+          <input
+            type="text"
+            className="form-control"
+            id="name"
+            placeholder="Enter name"
+            name="name"
+            required
+          />
+        </div>
         <div className="form-group">
           <label htmlFor="email">Email address</label>
           <input
             type="email"
-          className="form-control"
-          id="email"
-          placeholder="Enter email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-      </div>
+            className="form-control"
+            id="email"
+            placeholder="Enter email"
+            name="email"
+            required
+          />
+        </div>
 
       <div className="form-group">
         <label htmlFor="password">Password</label>
@@ -70,8 +60,7 @@ export const Login = () => {
           className="form-control"
           id="password"
           placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          name="password"
           required
         />
       </div>

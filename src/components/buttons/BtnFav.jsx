@@ -2,9 +2,10 @@ import React from "react";
 import { FaHeart } from "react-icons/fa";
 
 export const BtnFav = ({ tmdbId, titulo, poster, anio, overview }) => {
+    const BACKEND_API = import.meta.env.VITE_API_URL;
     async function btnFav() {
         try {
-            const res = await fetch("/api/favList", {
+            const res = await fetch(`${BACKEND_API}/favList`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -17,6 +18,7 @@ export const BtnFav = ({ tmdbId, titulo, poster, anio, overview }) => {
             }
             const data = await res.json();
             console.log("Película añadida a favoritos:", data);
+            alert("Película añadida a tus favoritos");
         } catch (err) {
             console.error("Error al añadir a favoritos:", err);
         }

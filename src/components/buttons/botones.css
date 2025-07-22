@@ -17,3 +17,17 @@ h1 {
   font-weight: 900;
     font-size: 65px;
 }
+
+.btn-logout-container button{
+  background-color: #d08832;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 60px;
+}
+
+.btn-logout-container button:hover {
+  background-color: darken(#d08832, 10%);
+}

@@ -73,8 +73,9 @@ export const registerUser = async (req, res, next) => {
 
         if(existingUser){
             res.status(400).json({
-                msg: "El usuario con ese correo ya existe",
+                msg: "El usuario con ese correo ya existe, pruebe con otro",
             });
+            return; // Aseguramos que no se continúe con el registro
         }
 
 

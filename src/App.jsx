@@ -19,20 +19,17 @@ import { Generos } from './pages/Generos.jsx'
 function App() {
   console.log(import.meta.env)
   return (
-      <BrowserRouter>
-        <Header />
-        <div>
-          <Routes>
-            <Route path="/" element={<Navigate to="/inicio" replace />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/registro" element={<Registro />} />
-            <Route path="/Perfil" element={<Perfil />}/>
-            <Route path="/Inicio" element={<Inicio />} />
-            <Route path="/MovieDetails" element={<MovieDetails />} />
-            <Route path="/generos" element={<Generos />} />
-          </Routes>
-        </div>
-      </BrowserRouter>
+        <><Header /><div>
+      <Routes>
+        <Route path="/" element={<Navigate to="/inicio" replace />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/registro" element={<Registro />} />
+        <Route path="/Perfil" element={<Perfil />} />
+        <Route path="/Inicio" element={<Inicio />} />
+        <Route path="/MovieDetails" element={<MovieDetails />} />
+        <Route path="/generos" element={<Generos />} />
+      </Routes>
+    </div></>
   );
 }
 

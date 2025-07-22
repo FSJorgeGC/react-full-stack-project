@@ -2,7 +2,7 @@ import "./cardPerfil.css"; // Importa el CSS para estilos
 
 export const CardPerfil = ({ p }) => {
     
-    const BACKEND_API = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/api/v1";
+    const BACKEND_API = import.meta.env.VITE_API_URL;
     const token = localStorage.getItem("token"); 
 
     async function handleDelete() {

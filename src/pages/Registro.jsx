@@ -34,6 +34,7 @@ export const Registro = () => {
             });
             const result = await response.json();
             if (!response.ok) {
+              alert(result.msg);
                 throw new Error(result?.msg || "Error al registrar usuario");
             }
             alert("Usuario registrado exitosamente");

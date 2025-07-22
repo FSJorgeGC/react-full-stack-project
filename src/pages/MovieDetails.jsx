@@ -12,8 +12,8 @@ import { useEffect, useState } from "react";
 
 const MovieDetails = () => {
 
-  const BACKEND_API = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/api/v1";
-  const API_KEY = import.meta.env.VITE_TMDB_API_KEY || "f3b0c1d2e3f4g5h6i7j8k9l0m1n2o3p4";
+  const VITE_API_URL = import.meta.env.VITE_API_URL;
+  const API_KEY = import.meta.env.TMDB_API_KEY;
 
   // Ayudado por IA
   const [itemsPerPage, setItemsPerPage] = useState(getItemsPerPage(window.innerWidth));
@@ -69,7 +69,7 @@ const MovieDetails = () => {
   async function fetchMovieActors() {
     try {
       console.log("Obteniendo actores de la película:", movie.id);
-      const response = await fetch(`${BACKEND_API}/movieActors/${movie.id}?api_key=${API_KEY}&language=es-ES`);
+      const response = await fetch(`${VITE_API_URL}/movieActors/${movie.id}?api_key=${API_KEY}&language=es-ES`);
       if (!response.ok) {
         console.error("Error al obtener los actores de la película:", response.statusText);
         return;
@@ -85,7 +85,7 @@ const MovieDetails = () => {
 
     async function fetchMovieDetails() {
     try {
-      const response = await fetch(`${BACKEND_API}/movieDetail/${movie.id}?api_key=${API_KEY}&language=es-ES`);
+      const response = await fetch(`${VITE_API_URL}/movieDetail/${movie.id}?api_key=${API_KEY}&language=es-ES`);
       if (!response.ok) {
         console.error("Error al obtener detalles de la película:", response.statusText);
         return;
@@ -102,7 +102,7 @@ const MovieDetails = () => {
    async function fetchMovieVideos() {
     try {
       console.log("Obteniendo detalles de la película:", movie.id);
-      const response = await fetch(`${BACKEND_API}/movieVideos/${movie.id}?api_key=${API_KEY}&language=es-ES`);
+      const response = await fetch(`${VITE_API_URL}/movieVideos/${movie.id}?api_key=${API_KEY}&language=es-ES`);
       if (!response.ok) {
         console.error("Error al obtener videos de la película:", response.statusText);
         return;
@@ -216,19 +216,18 @@ const MovieDetails = () => {
         {/* Contenido de VIDEO */}
         {actionButton === "Video" && (
           <div>
-           {responseVideo.results?.length > 0 &&
-              responseVideo.results.map((video) => (
-                <div key={video.id} className="video-item">
-                  <iframe
-                    width="560"
-                    height="315"
+          {responseVideo.map(video => (
+              <div key={video.id} className="video-item">
+                <iframe
+                  width="560"
+                  height="315"
                     src={`https://www.youtube.com/embed/${video.key}`}
                     title={video.name}
-                    frameBorder="0"
                     allowFullScreen
                   ></iframe>
                 </div>
-            ))}
+          ))}
+
 
           </div>
         )}

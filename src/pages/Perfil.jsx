@@ -5,17 +5,15 @@ Funcionalidad:
   - GET a /api/v1/auth/auth/me
 ---------------------------------------------------- */
 
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./perfil.css"; // Importa el CSS para estilos
 import { CardPerfil } from "../components/cards/CardPerfil";
-
-
+import { BtnLogOut } from "../components/buttons/BtnLogOut.jsx";
 
 export const Perfil = () => {
     const [user, setUser] = useState(null);
     const [actionButton, setActionButton] = useState("");
-    const BACKEND_API = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/api/v1";
+    const BACKEND_API = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
         fetchUser();
@@ -54,8 +52,10 @@ export const Perfil = () => {
                     {user ? (
                         <>
                             <div className="perfil-header">
-                                <h2>Perfil de usuario</h2>
-                                <h3>Bienvenido a tu perfil {user.nombre}</h3>
+                                    <h2>Tu perfil</h2>
+                                    <h3>Bienvenido a tu perfil, {user.name}</h3>
+                        
+                                 <BtnLogOut />
                             </div>
                             <div className="perfil-content">
                                  <div className="movie-details-buttons">

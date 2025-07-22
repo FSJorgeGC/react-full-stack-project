@@ -21,3 +21,16 @@
   align-items: center;
   padding: 20px;
 }
+
+.perfil-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.perfil-header h3 {
+  padding-left: 35px;
+  color: white;
+  font-size: 20px;
+}

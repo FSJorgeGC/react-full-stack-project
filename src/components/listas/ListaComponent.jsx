@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./listaTendencia.css";
+import "./listas.css";
 import { BtnPorVer } from "../buttons/BtnPorVer";
 import { Link } from "react-router-dom";
 import { FaInfoCircle } from "react-icons/fa";
@@ -23,24 +23,23 @@ const ListaComponent = ({ tipo, peliculasBusqueda = [] }) => {
   const [peliculas, setPeliculas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [checkPorVer, setCheckPorVer] = useState(false);
-  const VITE_API_URL = import.meta.env.VITE_BACKEND_URL_LOCAL;
+  const VITE_API_URL = import.meta.env.VITE_API_URL;
+
+    const fetchPeliculas = async () => {
+      try {
+        const response = await fetch(`${VITE_API_URL}/${tipo}`);
+        if (!response.ok) throw new Error("Error al obtener películas");
+        const data = await response.json();
+        setPeliculas(data);
+      } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-
-    if (peliculasBusqueda.length > 0) {
-      setPeliculas(peliculasBusqueda);
-      return;
-    }
-
-    fetch(`${VITE_API_URL}/${tipo}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Error al obtener películas");
-        return res.json();
-      })
-      .then((data) => setPeliculas(data))
-      .catch((err) => setError(err.message))
-      .finally(() => setLoading(false));
+    fetchPeliculas();
   }, [tipo, peliculasBusqueda, VITE_API_URL]);
 
 

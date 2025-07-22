@@ -11,7 +11,10 @@ const options = {
 
 
 const usuarioSchema = new mongoose.Schema({
-    nombre: String,
+    name: {
+        type: String,
+        required: true
+    },
     email: {
         type: String,
         required: true,
