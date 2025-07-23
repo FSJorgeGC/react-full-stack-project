@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 
 export const Registro = () => {
-    const BACKEND_API = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/api/v1";
+    const BACKEND_API = import.meta.env.VITE_BACKEND_URL;
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
