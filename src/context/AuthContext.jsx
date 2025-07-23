@@ -17,7 +17,7 @@ const getUser = () => {
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(getUser());
-  const BACKEND_API = import.meta.env.VITE_API_LOCAL;
+  const BACKEND_API = import.meta.env.VITE_API_URL;
   const isLoggedIn = !user;
   const navigate = useNavigate();
 
