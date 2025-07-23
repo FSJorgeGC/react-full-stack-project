@@ -1,62 +1,31 @@
-.general-movies-list{
-    display: flex;
-    flex-direction: column!important;
-    gap: 1rem;
-    padding: 50px;
+.buttons-generos-container {
+  display: grid;
+  /*Poner grid de 6 en 6*/
+  grid-template-columns: repeat(6, 1fr);
+  align-items: center;
+  gap: 10px;
+  margin: 20px auto;
+  width: 60%;
+  text-align: center;
 }
 
-.movie-card {
-  width: 300px;
-  height: 450px;
-  perspective: 1000px;
-  margin: 1rem;
+.buttons-generos-container button {
+  background-color: #d08832;
+  color: black;
 }
 
-.movie-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
-  cursor: pointer;
+.active {
+  background-color: #c7a883 !important;
+  color: black;
 }
 
-.movie-card:hover .movie-card-inner {
-  transform: rotateY(180deg);
-}
-
-.movie-card-front,
-.movie-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-}
-
-.movie-card-front img {
-  width: 100%;
-  height: 100%;
-}
-
-.movie-card-back {
- background-color: #1e1e1e;
-    color: #f0f0f0;
-  transform: rotateY(180deg);
-  padding: 1rem;
+.buscador-form {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
+  margin: 10px auto;
 }
 
-.num-vote{
-    font-weight: bold;
-    margin-top: 0.5rem;
-    display: flex;
-    justify-content: end;
-    font-size: 30px;
+.buscador-form h3{
+  color: white;
 }
-
-

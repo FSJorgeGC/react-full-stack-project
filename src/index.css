@@ -32,7 +32,7 @@ main {
 
 /* Pie de página */
 footer {
-  background-color: #005f73;
+  background-color: linear-gradient(to bottom, #0D0D0D, #1C1C1C);
   color: #fff;
   text-align: center;
   padding: 1rem;

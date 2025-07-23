@@ -14,7 +14,8 @@ import MovieDetails from './pages/MovieDetails.jsx'
 import { Login } from './pages/Login.jsx'
 import { Perfil } from './pages/Perfil.jsx'
 import { Registro } from './pages/Registro.jsx'
-import { Generos } from './pages/Generos.jsx'
+import { Buscador } from './pages/Buscador.jsx'
+import { Footer } from './pages/Footer.jsx'
 
 function App() {
   console.log(import.meta.env)
@@ -27,8 +28,9 @@ function App() {
         <Route path="/Perfil" element={<Perfil />} />
         <Route path="/Inicio" element={<Inicio />} />
         <Route path="/MovieDetails" element={<MovieDetails />} />
-        <Route path="/generos" element={<Generos />} />
+        <Route path="/buscador" element={<Buscador />} />
       </Routes>
+      <Footer />
     </div></>
   );
 }

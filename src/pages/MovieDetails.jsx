@@ -207,7 +207,7 @@ const MovieDetails = () => {
                 <button
                   onClick={() => setCurrentPage(currentPage === totalPages ? 1 : currentPage + 1)}
                 >
-                  ➤
+                  ▶
                 </button>
               </div>
             </div>
@@ -215,7 +215,7 @@ const MovieDetails = () => {
         )}
         {/* Contenido de VIDEO */}
         {actionButton === "Video" && (
-          <div>
+          <div className="video-container">
           {responseVideo.map(video => (
               <div key={video.id} className="video-item">
                 <iframe

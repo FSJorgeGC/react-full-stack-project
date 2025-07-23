@@ -10,7 +10,7 @@ Funcionalidad:
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import "./registro.css";
 
 export const Registro = () => {
     const BACKEND_API = import.meta.env.VITE_API_URL;
@@ -45,9 +45,9 @@ export const Registro = () => {
         }
     }
   return (
-    <div>
-      <h1>Registro</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="registro-container">
+      <h1>Registrate y empieza a disfrutar de nuestro contenido</h1>
+      <form  onSubmit={handleSubmit}>
         <div>
           <label htmlFor="email">Email:</label>
             <input type="email" id="email" name="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -60,8 +60,13 @@ export const Registro = () => {
           <label htmlFor="password">Contraseña:</label>
             <input type="password" id="password" name="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
-        <button type="submit">Registrar</button>
-        <p>¿Ya tienes una cuenta? <a href="/login">Inicia sesión</a></p>
+        <div className="button-container"> 
+            <button type="submit">Registrarse</button>
+
+        </div>
+        <div className="cuenta-existente-container">
+          <p>¿Ya tienes una cuenta? <a href="/login">Inicia sesión</a></p>
+        </div>
       </form>
     </div>
   );

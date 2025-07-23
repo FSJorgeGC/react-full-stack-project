@@ -3,7 +3,7 @@
 
 */
 
-import "./buscador.css"; // Importa el CSS para estilos
+import "./inicio.css"; // Importa el CSS para estilos
 import ListaComponent from "../components/listas/ListaComponent";
 import React, { use, useState } from "react";
 

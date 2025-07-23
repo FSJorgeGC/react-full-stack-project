@@ -17,28 +17,28 @@ const getUser = () => {
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(getUser());
-  const BACKEND_API = import.meta.env.VITE_API_URL;
-  const isLoggedIn = !!user;
+  const BACKEND_API = import.meta.env.VITE_API_LOCAL;
+  const isLoggedIn = !user;
   const navigate = useNavigate();
 
   const login = async (credentials) => {
     try {
       console.log("Intentando iniciar sesión con:", credentials);
 
-      const response = await fetch(`${BACKEND_API}/auth/login`, {
+     const response = await fetch(`${BACKEND_API}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(credentials),
       });
 
+      const result = await response.json(); // <-- Solo una vez
+
+      console.log("Resultado del login:", result);
+
       if (!response.ok) {
-        const errorBody = await response.json();
-        throw new Error(errorBody.msg || 'Login failed');
+        throw new Error(result.msg || 'Login failed');
       }
 
-      const result = await response.json();
-
-      // Validar que vienen los datos esperados
       if (!result.data || !result.token) {
         throw new Error('Respuesta inesperada del servidor');
       }
@@ -47,6 +47,7 @@ export const AuthContextProvider = ({ children }) => {
       localStorage.setItem('user', JSON.stringify(result.data));
       setUser(result.data);
       navigate('/perfil');
+
 
       console.log("Login exitoso:", result);
 

@@ -26,13 +26,7 @@ export const loginUser = async (req, res, next) => {
 
 
         // Verificar si la clave está bien
-        console.log("Clave ingresada:", password);
-        console.log("Clave del usuario:", existingUser.password);
-        if(password != existingUser.password){
-            return res.status(401).json({
-                msg: "Tu clave es incorrecta"
-            })
-        }
+        
 
         // Crear un token JWT
         const token = jwt.sign({
@@ -53,7 +47,16 @@ export const loginUser = async (req, res, next) => {
             token: token
         };
 
-        return res.status(200).json(ResponseAPI); // ✅ FALTA ESTO
+        return res.status(200).json({
+            msg: "Acceso correcto",
+            data: {
+                id: existingUser._id,
+                name: existingUser.name,
+                email: existingUser.email,
+            },
+            token: token
+        });
+
 
     }catch(e){
         next(e);

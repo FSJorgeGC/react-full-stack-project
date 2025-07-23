@@ -27,7 +27,7 @@ export const Login = () => {
   return (
     <>
     <div className="login-container">
-      <h1>Iniciar Sesión</h1>
+      <h1>Bienvenido de nuevo</h1>
       <form onSubmit={handleSubmit} className="container mt-5">
 
         <div className="form-group">
@@ -69,8 +69,8 @@ export const Login = () => {
         Entrar
       </button>
       </div>
-      <div >
-        <p style={{ margin: "0 auto" }}>¿Aún no tienes una cuenta?<Link to={"/registro"}> Regístrate aquí</Link></p>
+      <div className="no-account-container">
+        <p>¿Aún no tienes una cuenta?<Link to={"/registro"}> Regístrate aquí</Link></p>
       </div>
       
     </form>

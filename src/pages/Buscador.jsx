@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import ListaComponent from '../components/listas/ListaComponent';
 import ListaComponentBusqueda from '../components/listas/ListaComponentBusqueda';
-import './generos.css'; // Importa el CSS para estilos
+import './buscador.css'; // Importa el CSS para estilos
 
-export const Generos = () => {
+export const Buscador = () => {
     const VITE_API_URL = import.meta.env.VITE_API_URL;
     const TMDB_API_KEY = import.meta.env.TMDB_API_KEY;
     const [generos, setGeneros] = useState([]);
@@ -67,7 +67,8 @@ export const Generos = () => {
 
     return (
         <>
-          <form onSubmit={handleSearch}>
+        <h2>Buscador</h2>
+          <form className="buscador-form" onSubmit={handleSearch}>
             <h3>Busca aquí tu película para hoy</h3>
             <input
             type="text"

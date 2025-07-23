@@ -138,6 +138,19 @@ a{
   flex-direction: row;
   justify-content: space-between;
   height: 100%;
+  padding: 10px;
+}
+
+
+@media (max-width: 1629px) {
+  .movie-info {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    row-gap: 20px;
+    
+  }
+
 }
 
 h2{
