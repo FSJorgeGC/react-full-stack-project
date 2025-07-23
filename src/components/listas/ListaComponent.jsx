@@ -104,7 +104,6 @@ const ListaComponent = ({ tipo, peliculasBusqueda = [] }) => {
                         poster={p.poster_path}
                         anio={p.release_date?.split("-")[0]}
                         overview={p.overview}
-                        styleClass={checkPorVer ? "active" : ""}
                       />
                     </div>
                     <div>
