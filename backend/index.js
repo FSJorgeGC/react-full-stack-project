@@ -17,13 +17,16 @@ const whitelist = [
 // Configuración de CORS
 app.use(cors({
   origin: function (origin, callback) {
-    if (!origin || whitelist.includes(origin)) {
+    if (!origin || whitelist.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
+      console.log(`❌ Bloqueado por CORS: ${origin}`);
       callback(new Error("Not allowed by CORS"));
     }
-  }
+  },
+  credentials: true
 }));
+
 
 // Middleware para parsear JSON
 app.use(express.json());
