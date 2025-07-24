@@ -6,7 +6,7 @@ import { AuthContext } from '../context/AuthContext.jsx'; // Import your AuthCon
 
 export const Header = () => {
     const { isLoggedIn } = useContext(AuthContext); // Assuming you have an AuthContext to check login status
-
+    console.log(isLoggedIn); // For debugging purposes
     return (
         <header>
             <Link to="/"><img src={Logo} alt="Logo" className="logo" style={{ width: '250px', height: 'auto' }}/></Link>

@@ -11,7 +11,7 @@ const app = express();
 // Lista blanca de dominios permitidos (desarrollo y producción)
 const whitelist = [
   "http://localhost:5173",
-  "https://eloquent-starlight-bd56f5.netlify.app"
+  "https://movieinweb.netlify.app"
 ];
 
 // Configuración de CORS
