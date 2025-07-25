@@ -15,13 +15,13 @@ import { Login } from './pages/Login.jsx'
 import { Perfil } from './pages/Perfil.jsx'
 import { Registro } from './pages/Registro.jsx'
 import { Buscador } from './pages/Buscador.jsx'
-import { Footer } from './pages/Footer.jsx'
 
 function App() {
   console.log(import.meta.env)
   return (
         <><Header /><div>
-      <Routes>
+          <main>
+           <Routes>
         <Route path="/" element={<Navigate to="/inicio" replace />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
@@ -30,7 +30,7 @@ function App() {
         <Route path="/MovieDetails" element={<MovieDetails />} />
         <Route path="/buscador" element={<Buscador />} />
       </Routes>
-      <Footer />
+          </main>
     </div></>
   );
 }

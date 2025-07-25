@@ -9,52 +9,53 @@ export const getPopulares = async (req, res, next) => {
     res.json(data.results);
   } catch (err) {
     res.status(500).json({ error: "Error al consultar populares" });
+    next(err);
   }
 };
-export const getTendencia = async (req, res) => {
+export const getTendencia = async (req, res, next) => {
   try {
     const response = await fetch(`${TMDB_BASE_URL}/trending/movie/day?api_key=${TMDB_API_KEY}&language=es-ES`);
     const data = await response.json();
     res.json(data.results);
   } catch (err) {
+    next(err);
     res.status(500).json({ error: "Error al consultar tendencia" });
   }
 };
 
-export const getTopPeliculas = async (req, res) => {
+export const getTopPeliculas = async (req, res, next) => {
   try {
     const response = await fetch(`${TMDB_BASE_URL}/movie/top_rated?api_key=${TMDB_API_KEY}&language=es-ES`);
     const data = await response.json();
     res.json(data.results);
   } catch (err) {
+    next(err);
     res.status(500).json({ error: "Error al consultar tendencia" });
   }
 };
 
 
-export const getNextMovies = async (req, res) => {
+export const getNextMovies = async (req, res, next) => {
   try {
     const response = await fetch(`${TMDB_BASE_URL}/movie/upcoming?api_key=${TMDB_API_KEY}&language=es-ES`);
     const data = await response.json();
     res.json(data.results);
   } catch (err) {
+    next(err);
     res.status(500).json({ error: "Error al consultar tendencia" });
   }
 };
 
 
-export const addToWatchlist = async (req, res) => {
-  const userId = req.user.id; // Asumiendo que el ID del usuario está en req.user.id
+export const addToWatchlist = async (req, res, next) => {
+  const userId = req.user.id; 
   const { tmdbId, titulo, poster, anio, overview } = req.body;
-  console.log("ID del usuario:", req.body);
   try{
-    // Comprobar que el usuario existe
     const user = await usuarioModel.findById(userId);
     if (!user) {
       return res.status(404).json({ error: "Usuario no encontrado" });
     }
 
-    // Comprobar que no esta ya en la lista
     if(user.watchlist.some(movie => movie.tmdbId === tmdbId)) {
       return res.status(400).json({ error: "La película ya está en la lista de seguimiento" });
     }
@@ -63,25 +64,21 @@ export const addToWatchlist = async (req, res) => {
     await user.save();
     res.status(201).json({ message: "Película añadida a la lista de seguimiento" });
   } catch (err) {
-    console.error("Error al añadir a la lista de seguimiento:", err);
-    res.status(500).json({ error: "Error al añadir a la lista de seguimiento" });
+    next(err);
   }
 };
 
-export const deleteFromWatchlist = async (req, res) => {
-  const userId = req.user.id; // Asumiendo que el ID del usuario está en req.user.id
+export const deleteFromWatchlist = async (req, res, next) => {
+  const userId = req.user.id;
   const { tmdbId } = req.body;
   try {
-    // Comprobar que el usuario existe
     const user = await usuarioModel.findById(userId);
     if (!user) {
       return res.status(404).json({ error: "Usuario no encontrado" });
     }
 
-    // Comprobar que la película está en la lista
     const movieIndex = user.watchlist.findIndex(movie => movie.tmdbId === tmdbId);
 
-    // Eliminar la película de la lista
     user.watchlist.splice(movieIndex, 1);
     await user.save();
     res.status(200).json({ message: "Película eliminada de la lista de seguimiento" });
@@ -92,51 +89,49 @@ export const deleteFromWatchlist = async (req, res) => {
 }
 
 
-export const getUserWatchlist = async (req, res) => {
-  const userId = req.user.id; // Asumiendo que el ID del usuario está en req.user.id
+export const getUserWatchlist = async (req, res, next) => {
+  const userId = req.user.id; 
   const { tmdbId, titulo, poster, anio, overview } = req.body;
-  console.log("ID del usuario:", req.body);
   try{
-    // Comprobar que el usuario existe
     const user = await usuarioModel.findById(userId);
     if (!user) {
       return res.status(404).json({ error: "Usuario no encontrado" });
     }
 
-    // Comprobar que no esta ya en la lista
+
     if(user.watchlist.some(movie => movie.tmdbId === tmdbId)) {
        res.status(201).json({ message: "La película ya está en la lista de seguimiento" });
     }
 
   } catch (err) {
-    console.error("Error al obtener la lista de seguimiento:", err);
-    res.status(500).json({ error: "Error al obtener la lista de seguimiento" });
+    next(err);
   }
 };
 
-export const addToFavList = async (req, res) => {
-  const userId = req.user.id; // Asumiendo que el ID del usuario está
+export const addToFavList = async (req, res, next) => {
+  const userId = req.user.id;
   const { tmdbId, titulo, poster, anio, overview } = req.body;
   try {
-    // Comprobar que el usuario existe
+
     const user = await usuarioModel.findById(userId);
     if (!user) {
       return res.status(404).json({ error: "Usuario no encontrado" });
     }
-    // Comprobar que no esta ya en la lista de favoritos
+ 
     if (user.favList.some(movie => movie.tmdbId === tmdbId))
       return res.status(400).json({ error: "La película ya está en la lista de favoritos" });
-    // Añadir la película a la lista de favoritos
+
     user.favList.push({ tmdbId, titulo, poster, anio, overview });
     await user.save();
     res.status(201).json({ message: "Película añadida a la lista de favoritos" });
   } catch (err) {
     console.error("Error al añadir a la lista de favoritos:", err);
     res.status(500).json({ error: "Error al añadir a la lista de favoritos" });
+    next(err);
   }
 }; 
 
-export const getMovieDetails = async (req, res) => {
+export const getMovieDetails = async (req, res, next) => {
   const { tmdbId } = req.params;
   try {
     const response = await fetch(`${TMDB_BASE_URL}/movie/${tmdbId}?api_key=${TMDB_API_KEY}&language=es-ES`);
@@ -146,14 +141,14 @@ export const getMovieDetails = async (req, res) => {
     const data = await response.json();
     res.json(data);
   } catch (err) {
-    console.error("Error al obtener detalles de la película:", err);
     res.status(500).json({ error: "Error al obtener detalles de la película" });
+    next(err);
   }
 }
 
 
 
-export const searchMovies = async (req, res) => {
+export const searchMovies = async (req, res, next) => {
   const { query } = req.params;
   try {
     const response = await fetch(`${TMDB_BASE_URL}/search/movie?api_key=${TMDB_API_KEY}&language=es-ES&query=${encodeURIComponent(query)}`);
@@ -163,8 +158,7 @@ export const searchMovies = async (req, res) => {
     const data = await response.json();
     res.json(data.results);
   } catch (err) {
-    console.error("Error al buscar películas:", err);
-    res.status(500).json({ error: "Error al buscar películas" });
+    next(err);
   }
 };
 
@@ -206,7 +200,7 @@ export const getMovieVideos = async (req, res, next) => {
 }
 
 
-export const checkPorVer = async (req, res) => {
+export const checkPorVer = async (req, res, next) => {
   const userId = req.params.id;
   const { tmdbId } = req.params;
   try {
@@ -222,8 +216,8 @@ export const checkPorVer = async (req, res) => {
     
     res.status(200).json(movie);
   } catch (err) {
-    console.error("Error al comprobar la lista de seguimiento:", err);
     res.status(500).json({ error: "Error al comprobar la lista de seguimiento" });
+    next(err);
   }
 };
 

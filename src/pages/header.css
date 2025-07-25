@@ -1,6 +1,5 @@
 header{
     display: flex;
-    background-color: #1e003e;
 }
 
 .header-links {
@@ -14,4 +13,73 @@ header{
     text-decoration: none;
     font-weight: bold;
     font-size: 16px;
+}
+
+
+.logo {
+    width: 250px;
+    height: auto;
+}
+
+/* Desktop navigation */
+.header-links {
+    display: flex;
+    gap: 40px;
+}
+
+.header-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Hamburger button - hidden on desktop */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+}
+
+.hamburger span {
+    height: 3px;
+    width: 25px;
+    background: white;
+    border-radius: 5px;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    header {
+        display: flex;
+        justify-content: space-between!important;
+        align-items: center;
+        padding: 10px 20px;
+    }
+    .hamburger {
+        display: flex;
+    }
+
+    .header-links {
+        position: absolute;
+        top: 40px;
+        right: 0;
+        background-color: black;
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+        display: none;
+        width: 100%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+    }
+
+    .header-links.show {
+        display: flex;
+    }
+
+    .logo {
+        width: 180px;
+    }
 }

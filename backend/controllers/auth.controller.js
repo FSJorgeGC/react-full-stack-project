@@ -23,9 +23,6 @@ export const loginUser = async (req, res, next) => {
                 msg: "El correo ingresado no es válido"
             })
         }
-
-
-        // Verificar si la clave está bien
         
 
         // Crear un token JWT

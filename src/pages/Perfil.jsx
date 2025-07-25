@@ -1,9 +1,9 @@
-/* ------------------ Perfil.jsx ------------------
+/* Perfil.jsx 
 Hooks: useState, useEffect
 Funcionalidad:
   - Perfil de usuario donde se muestra el nombre y las listas, tanto de favoritas como de por ver
   - GET a /api/v1/auth/auth/me
----------------------------------------------------- */
+*/
 
 import React, { useState, useEffect } from "react";
 import "./perfil.css"; // Importa el CSS para estilos

@@ -76,8 +76,7 @@ const MovieDetails = () => {
       }
 
       const responseData = await response.json();
-      console.log("Actores de la película:", responseData || "No");
-      setCast(responseData || []); // suponiendo que el backend responde con { data: { cast: [...] } }
+      setCast(responseData || []);
     } catch (error) {
       console.error(error);
     }
@@ -92,8 +91,7 @@ const MovieDetails = () => {
       }
 
       const responseData = await response.json();
-      console.log("Detalles de la película:", responseData || "No");
-      setDetails(responseData || []); // suponiendo que el backend responde con { data: { cast: [...] } }
+      setDetails(responseData || []);
     } catch (error) {
       console.error(error);
     }
@@ -109,8 +107,7 @@ const MovieDetails = () => {
       }
 
       const responseData = await response.json();
-      console.log("Videos de la película:", responseData || "No");
-      setResponseVideo(responseData || []); // suponiendo que el backend responde con { data: { cast: [...] } }
+      setResponseVideo(responseData || []);
     } catch (error) {
       console.error(error);
     }

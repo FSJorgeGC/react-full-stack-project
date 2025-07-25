@@ -22,7 +22,6 @@ export const BtnPorVer = ({ tmdbId, titulo, poster, anio, overview }) => {
                 throw new Error(errorData.error || "Error al añadir a la lista de seguimiento");
             }
             const data = await response.json();
-            console.log(data.message || "Película añadida a la lista de seguimiento");
             alert("Película añadida a la lista de seguimiento");
         } catch (error) {
             console.error("Error al añadir a la lista de seguimiento:", error.message);

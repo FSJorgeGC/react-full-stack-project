@@ -1,7 +1,11 @@
+/* Buscador.jsx
+    - Componente de buscador de películas
+    - Permite buscar películas por género o por nombre
+*/
+
 import React, { useState, useEffect } from 'react';
-import ListaComponent from '../components/listas/ListaComponent';
 import ListaComponentBusqueda from '../components/listas/ListaComponentBusqueda';
-import './buscador.css'; // Importa el CSS para estilos
+import './buscador.css'; 
 
 export const Buscador = () => {
     const VITE_API_URL = import.meta.env.VITE_API_URL;
@@ -22,9 +26,8 @@ export const Buscador = () => {
             if (!response.ok) {
                 throw new Error('Error al obtener géneros de películas');
             }
-            console.log('Respuesta de géneros:', response);
             const data = await response.json();
-            setGeneros(data.genres || data); // Ajusta según la estructura de tu respuesta
+            setGeneros(data.genres || data); 
         } catch (error) {
             console.error('Error:', error);
             setGeneros([]);
@@ -41,8 +44,7 @@ export const Buscador = () => {
                 throw new Error('Error al obtener películas por género');
             }
             const data = await response.json();
-            console.log('Películas por género:', data);
-            setMoviesByGenre(data.results || data); // Ajusta según la estructura de tu respuesta
+            setMoviesByGenre(data.results || data);
         } catch (error) {
             console.error('Error:', error);
         }
@@ -56,10 +58,8 @@ export const Buscador = () => {
                 throw new Error("Error al buscar películas");
             }
             const data = await response.json();
-            console.log("Resultados de búsqueda:", data);
             setSearchMovie(data);
         } catch (error) {
-            console.error("Error al buscar películas:", error);
             alert("Error al buscar películas. Por favor, inténtalo de nuevo más tarde.");
         }
   };

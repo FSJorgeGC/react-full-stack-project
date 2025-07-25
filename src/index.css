@@ -89,3 +89,7 @@ h2 {
   font-weight: 700;
   font-size: 55px;
 }
+
+main {
+  flex: 1;
+}

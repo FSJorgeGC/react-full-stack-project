@@ -81,6 +81,14 @@
 }
 
 
+@media (max-width: 475px) {
+  .num-vote {
+    margin-left: 0px;
+    margin-right: 5px;
+  }
+  
+}
+
 
 .button{
     background-color: #d08832;
@@ -156,6 +164,16 @@ a{
 h2{
   text-align: left;
 }
+
+
+@media (max-width: 475px) {
+ h2{
+    text-align: center;
+    font-size: 40px;
+  }
+ }
+  
+
 
 .slick-dots li button {
   width: 10px;

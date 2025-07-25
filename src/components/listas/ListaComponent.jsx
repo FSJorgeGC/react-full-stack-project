@@ -16,7 +16,7 @@ const TITULOS = {
   tendencia: "en Tendencia",
   top: "Mejor Valoradas",
   populares: "Populares",
-  nextMovies: "que saldrán próximamente",
+  nextMovies: "próximas",
 };
 
 const ListaComponent = ({ tipo, peliculasBusqueda = [] }) => {
@@ -52,9 +52,9 @@ const ListaComponent = ({ tipo, peliculasBusqueda = [] }) => {
     arrows: true,
     responsive: [
       { breakpoint: 1440, settings: { slidesToShow: 4, slidesToScroll: 3 } },
-      { breakpoint: 1024, settings: { slidesToShow: 3, slidesToScroll: 2 } },
-      { breakpoint: 768, settings: { slidesToShow: 2, slidesToScroll: 1 } },
-      { breakpoint: 480, settings: { slidesToShow: 1, slidesToScroll: 1 } },
+      { breakpoint: 1250, settings: { slidesToShow: 3, slidesToScroll: 2 } },
+      { breakpoint: 900, settings: { slidesToShow: 2, slidesToScroll: 1, dots: false } },
+      { breakpoint: 480, settings: { slidesToShow: 1, slidesToScroll: 1, dots: false } },
     ],
   };
 
