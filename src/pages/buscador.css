@@ -1,17 +1,26 @@
 .buttons-generos-container {
   display: grid;
-  /*Poner grid de 6 en 6*/
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   align-items: center;
   gap: 10px;
   margin: 20px auto;
-  width: 60%;
+  width: 80%;
   text-align: center;
+  justify-content: center;
 }
 
+
 .buttons-generos-container button {
-  background-color: #d08832;
+  padding: 10px 20px;
+  background-color: #c47b22;
   color: black;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  max-width: 140px;
 }
 
 .active {
@@ -28,4 +37,40 @@
 
 .buscador-form h3{
   color: white;
+}
+
+.genero-select-container {
+  display: none;
+  text-align: center;
+  margin: 20px auto;
+}
+
+.genero-select-container select {
+  background-color: #c47b22;         
+  color: black;                      
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 400px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  appearance: none;
+}
+
+
+.genero-select-container select:invalid {
+  color: #ffffffaa;
+}
+
+
+@media (max-width: 375px) {
+  .buttons-generos-container {
+    display: none;
+  }
+
+  .genero-select-container {
+    display: block;
+  }
 }

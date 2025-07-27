@@ -76,17 +76,37 @@ export const Buscador = () => {
             placeholder="Buscar películas..."
             />
         </form>
-        <div>
-            {generos.length > 0 ? (
-                <div className='buttons-generos-container'>
+        {generos.length > 0 && (
+        <>
+            {/* Para pantallas pequeñas */}
+                <div className="genero-select-container">
+                <select
+                    value={activeGenre || ''}
+                    onChange={(e) => handleGeneroClick(parseInt(e.target.value))}
+                >
+                    <option value="" disabled>Selecciona un género</option>
                     {generos.map(genero => (
-                        <div key={genero.id}><button className={activeGenre === genero.id ? 'active' : ''} onClick={() => handleGeneroClick(genero.id)}>{genero.name}</button></div>
+                    <option key={genero.id} value={genero.id}>{genero.name}</option>
                     ))}
+                </select>
                 </div>
-            ) : (
-                <p>No se encontraron géneros.</p>
+
+                {/* Para pantallas normales */}
+                <div className='buttons-generos-container'>
+                {generos.map(genero => (
+                    <div key={genero.id}>
+                    <button
+                        className={activeGenre === genero.id ? 'active' : ''}
+                        onClick={() => handleGeneroClick(genero.id)}
+                    >
+                        {genero.name}
+                    </button>
+                    </div>
+                ))}
+                </div>
+            </>
             )}
-        </div>
+
         <div>
             <ListaComponentBusqueda peliculasGenero={moviesByGenre} peliculasBusqueda={searchMovie} />
         </div>
